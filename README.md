@@ -1,7 +1,7 @@
 # SPNG+
 A stacking ensemble method to predict non-classical secreted proteins in Gram-positive bacteria
 
-SPNG+特征提取方法请前往https://diffuser.erc.monash.edu
+SPNG+通过https://diffuser.erc.monash.edu对序列进行特征提取
 
 - dataset
   - SPNG+中所用到的数据
