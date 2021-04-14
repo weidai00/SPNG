@@ -1,0 +1,2 @@
+"Model","Encoding","learningRate","numLeaves","maxDepth","minDataInLeaf","maxBin","featureFraction","minSumHessian","lambdaL1","lambdaL2","dropRate","maxDrop"
+"LightGBM","paac","0.320714301985762","20","7.02656428807567","2","1024","0.710778241169157","0.0184699508796141","0.00244292730774354","0.00489540730876162","0.232336956452359","1"
