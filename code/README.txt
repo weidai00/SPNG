@@ -26,7 +26,6 @@ SPNG模型
 	Rscript protein_single_feature_knn_predict.R
 
 	##集成模型的预测
-	Rscript protein_combine_single_model.R
 	Rscript protein_stacking_model_predict.R svm 10
 
 其他文件或者是调参代码，或者是交叉验证代码
