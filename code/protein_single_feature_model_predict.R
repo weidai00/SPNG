@@ -4,15 +4,13 @@ library("randomForest")
 library(plyr)
 library(xgboost)
 library(lightgbm)
-#1.每一折的模型对测试集预测一下，N折的预测分数取均值
-#2.预测分数和标签做
+
 #Rscipt protein_single_feature_model_predict.R svm 10
 Args = commandArgs()
 predict_model<-function(Type,model,times){
-  # model = "rf"
+
   fileTileVecs = c("paac","qsorder","ctriad","ctdt","tpc","pse_pssm","aatp")
-  # fileTileVecs = c("aac","aac_pssm","aadp_pssm","aatp","ab_pssm","ac","acc","apaac","cc","cksaagp","cksaap","ctdc","ctdt","ctriad","d_fpssm","dde","dp","dp_pssm","dpc","dpc_pssm","dr","edp","eedp","gaac","gdpc","geary","gtpc","k_separated_bigrams_pssm","ksctriad","medp","moran","nmbroto","paac","pdt","pse_pssm","pssm_ac","pssm_composition","qsorder","rpssm","rpm_pssm","tpc","tpc_pssm","s_fpssm","socnumber")
-  # fileTileVecs_small = c("ab_pssm","d_fpssm","eedp","aac","dpc","rpm_pssm","k_separated_bigrams_pssm","ctdc")
+ 
   dp.data = read.csv(sprintf("feature_test/%s_test_paac.csv",Type),header = T)
   matt =vector() 
   mat=vector()
@@ -102,26 +100,9 @@ predict_model<-function(Type,model,times){
     
     
     # sn = sum(precisionList>0.5)/length(precisionList)
-    precision = confMat[2,2]/(confMat[2,2]+confMat[2,1])
-    recall = confMat[2,2]/(confMat[2,2]+confMat[1,2])
-    acc = (confMat[1,1]+confMat[2,2])/(confMat[2,2]+confMat[1,2]+confMat[1,1]+confMat[2,1])
-    sp = confMat[1,1]/(confMat[1,1]+confMat[2,1])
-    mcc = (confMat[1,1]*confMat[2,2]-confMat[1,2]*confMat[2,1])/sqrt((confMat[2,2]+confMat[1,2])*(confMat[2,2]+confMat[2,1])*(confMat[1,1]+confMat[1,2])*(confMat[1,1]+confMat[2,1]))
-    Fvalue = 2.0*precision*recall/(precision+recall)
-    #</confu>
-
-
-    line = c(fileTileVecs[fi],
-             sprintf("%.3f",precision),
-             sprintf("%.3f",recall),
-             sprintf("%.3f",sp),
-             sprintf("%.3f",Fvalue),
-             sprintf("%.3f",acc),
-             sprintf("%.3f",mcc))
-    # line = c(fileTileVecs[fi],
-    #                   sprintf("%.3f",sn))
-    print(line)
-    mat = rbind(mat,line)
+   
+   
+   
     matt = cbind(matt,unlist(precisionList))
     mattt = cbind(mattt,as.integer(unlist(precisionList)>0.5))
   
@@ -133,11 +114,8 @@ predict_model<-function(Type,model,times){
   colnames(matt) <- c("Class",feature_name)
   write.table(matt,file=sprintf("result/%s_single_feature_%s_test_perc.csv",Type,model),sep=",",row.names = F)
   
-  ## 存储指标数据的表???
-  colnames(mat) <- c("Encoding","PRE","SN","SP","F-value","ACC","MCC")
-  # colnames(mat) <- c("Encoding","SN")
-  write.csv(mat,file=sprintf("result/%s_single_feature_%s_test_perf.csv",Type,model),row.names = F)
-  #write.table(mat,file="ecoli_QSO.csv",sep="\t",row.names = F, col.names = T)
+
+  
   
   colnames(mattt)<-c("Class",feature_name)
   
