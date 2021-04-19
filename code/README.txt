@@ -24,7 +24,10 @@ SPNG模型
 	Rscirpt protein_single_feature_model_predict.R xgboost 10 
 	Rscirpt protein_single_feature_model_predict.R lightgbm 10 
 	Rscript protein_single_feature_knn_predict.R
-
+	
+	##组合单一模型
+	Rscript protein_stacking_model_predict.R
+	
 	##集成模型的预测
 	Rscript protein_stacking_model_predict.R svm 10
 
